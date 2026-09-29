@@ -1,0 +1,52 @@
+Use SouthAfricaAirwaysDB
+GO
+
+CREATE TABLE Airports
+(
+	Airport INT PRIMARY KEY IDENTITY,
+	AirportName NVARCHAR(100), 
+	City NVARCHAR(100)
+);
+
+CREATE TABLE Passengers
+(
+	id INT PRIMARY KEY IDENTITY,
+	FullName NVARCHAR (100),
+	Email NVARCHAR (100)
+);
+
+CREATE TABLE FLIGHTS
+(
+	ID INT PRIMARY KEY IDENTITY,
+    FlightNumber NVARCHAR(20),
+    DepartureAirportID INT FOREIGN KEY REFERENCES Airports(Airport),
+    ArrivalAirportID INT FOREIGN KEY REFERENCES Airports(Airport),
+    DepartureTime DATETIME,
+    ArrivalTime DATETIME
+);
+
+CREATE TABLE BOOKINGS
+(
+	ID INT PRIMARY KEY IDENTITY,
+    FlightID INT FOREIGN KEY REFERENCES Flights(ID),
+    Status NVARCHAR(20)
+);
+
+CREATE TABLE BookingPassengers (
+    BookingID INT FOREIGN KEY REFERENCES Bookings(ID),
+    PassengerID INT FOREIGN KEY REFERENCES Passengers(id),
+    PRIMARY KEY (BookingID, PassengerID)
+);
+
+CREATE TABLE Tickets (
+    TicketID INT PRIMARY KEY IDENTITY,
+    BookingID INT FOREIGN KEY REFERENCES Bookings(ID),
+    SeatNumber NVARCHAR(10)
+);
+
+CREATE TABLE Payments (
+    PaymentID INT PRIMARY KEY IDENTITY,
+    BookingID INT FOREIGN KEY REFERENCES Bookings(ID),
+    Amount DECIMAL(10,2),
+    Status NVARCHAR(20)
+);
