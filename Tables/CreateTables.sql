@@ -1,4 +1,4 @@
-Use SouthAfricaAirwaysDB
+Use SAAirwayDB
 GO
 
 CREATE TABLE Airports
@@ -40,7 +40,8 @@ CREATE TABLE BookingPassengers (
 
 
 
-CREATE TABLE Tickets (
+CREATE TABLE Tickets 
+(
     ID INT PRIMARY KEY IDENTITY,
     BookingID INT FOREIGN KEY REFERENCES Bookings(ID),
     SeatNumber NVARCHAR(10)
@@ -89,7 +90,10 @@ INSERT INTO BookingPassengers (BookingID, PassengerID) VALUES
 (2, 3),         
 (3, 4), (3, 5);
 
-
+INSERT INTO Payments (BookingID, Amount, Status) VALUES
+(1, 2500.00, 'Paid'),
+(2, 1800.00, 'Pending'),
+(3, 2200.00, 'Paid');
 
 
 
